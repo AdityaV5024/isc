@@ -1,288 +1,465 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>ISC 2026 — Exam Countdown & Datesheet</title>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<style>
-  :root{
-    --bg:#0b0f13;
-    --card:#0f1720;
-    --muted:#9aa6b2;
-    --accent:#7c3aed;
-    --glass: rgba(255,255,255,0.03);
-    --success:#34d399;
-    --danger:#fb7185;
-    --glass-2: rgba(255,255,255,0.02);
-    font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  }
-  *{box-sizing:border-box}
-  body{
-    margin:0;
-    min-height:100vh;
-    background:
-      radial-gradient(1200px 600px at 10% 10%, rgba(124,58,237,0.06), transparent 8%),
-      radial-gradient(900px 450px at 90% 90%, rgba(0,0,0,0.12), transparent 10%),
-      var(--bg);
-    color:#e6eef6;
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-    padding:24px;
-    display:flex;
-    align-items:flex-start;
-    justify-content:center;
-    gap:20px;
-    font-size:15px;
-  }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ISC 2026 — Exam Countdown & Datesheet</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <style>
+    :root {
+      --bg: #0b0f13;
+      --card: #0f1720;
+      --muted: #9aa6b2;
+      --accent: #7c3aed;
+      --glass: rgba(255, 255, 255, 0.03);
+      --success: #34d399;
+      --danger: #fb7185;
+      --glass-2: rgba(255, 255, 255, 0.02);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
 
-  .wrap{
-    width:100%;
-    max-width:1080px;
-    display:grid;
-    grid-template-columns: 1fr 360px;
-    gap:20px;
-  }
+    * {
+      box-sizing: border-box
+    }
 
-  @media (max-width:980px){
-    .wrap{grid-template-columns:1fr}
-  }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(1200px 600px at 10% 10%, rgba(124, 58, 237, 0.06), transparent 8%),
+        radial-gradient(900px 450px at 90% 90%, rgba(0, 0, 0, 0.12), transparent 10%),
+        var(--bg);
+      color: #e6eef6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding: 24px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 20px;
+      font-size: 15px;
+    }
 
-  header{
-    grid-column:1/-1;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:12px;
-  }
-  .brand{
-    display:flex;
-    gap:12px;
-    align-items:center;
-  }
-  .logo{
-    width:56px;height:56px;border-radius:10px;
-    background: linear-gradient(135deg,var(--accent),#2dd4bf);
-    display:flex;align-items:center;justify-content:center;
-    box-shadow: 0 6px 20px rgba(124,58,237,0.16);
-    font-weight:700;font-size:18px;color:white;
-  }
-  h1{margin:0;font-size:20px}
-  p.lead{margin:0;color:var(--muted);font-size:13px}
+    .wrap {
+      width: 100%;
+      max-width: 1080px;
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 20px;
+    }
 
-  .card{
-    background: linear-gradient(180deg,var(--card), rgba(11,15,19,0.8));
-    border-radius:14px;
-    padding:16px;
-    box-shadow: 0 6px 18px rgba(2,6,23,0.6);
-    border:1px solid rgba(255,255,255,0.03);
-  }
+    @media (max-width:980px) {
+      .wrap {
+        grid-template-columns: 1fr
+      }
+    }
 
-  /* Left column - datesheet */
-  .datesheet{
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-  }
+    header {
+      grid-column: 1/-1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
 
-  .controls{
-    display:flex;
-    gap:8px;
-    flex-wrap:wrap;
-  }
-  .btn{
-    background:var(--glass);
-    border:1px solid rgba(255,255,255,0.03);
-    color:var(--muted);
-    padding:8px 10px;
-    border-radius:10px;
-    cursor:pointer;
-    font-weight:600;
-    font-size:13px;
-  }
-  .btn.primary{background:linear-gradient(90deg,var(--accent),#5b8cff);color:white;border:none;box-shadow:0 6px 18px rgba(124,58,237,0.14)}
-  .btn.ghost{background:transparent;border:1px dashed rgba(255,255,255,0.04); color:var(--muted)}
-  .btn:active{transform:translateY(1px)}
+    .brand {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
 
-  .exam-list{
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-  }
+    .logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent), #2dd4bf);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 20px rgba(124, 58, 237, 0.16);
+      font-weight: 700;
+      font-size: 18px;
+      color: white;
+    }
 
-  .exam{
-    display:grid;
-    grid-template-columns: 110px 1fr 130px;
-    gap:12px;
-    align-items:center;
-    padding:12px;
-    border-radius:12px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.015), transparent);
-    border:1px solid rgba(255,255,255,0.02);
-  }
-  .exam .date{
-    font-weight:700;
-    color:#fff;
-    display:flex;
-    flex-direction:column;
-    gap:6px;
-    align-items:flex-start;
-  }
-  .exam .date .dow{font-size:13px;color:var(--muted)}
-  .exam .meta{display:flex;flex-direction:column;gap:6px}
-  .subject{font-weight:700;font-size:15px}
-  .info{color:var(--muted);font-size:13px}
-  .count{display:flex;flex-direction:column;gap:6px;align-items:flex-end}
-  .count .big{font-weight:800;font-size:18px}
-  .gap{font-size:12px;color:var(--muted);margin-top:6px}
+    h1 {
+      margin: 0;
+      font-size: 20px
+    }
 
-  .removed-list{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
-  .pill{background:var(--glass-2);padding:8px 10px;border-radius:999px;font-size:13px;color:var(--muted);display:flex;gap:8px;align-items:center}
-  .pill button{background:transparent;border:none;color:var(--accent);cursor:pointer;font-weight:700}
+    p.lead {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px
+    }
 
-  /* Right column - quick summary & rules */
-  .sidebar{display:flex;flex-direction:column;gap:12px;position:sticky;top:24px;height:fit-content}
-  .summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-  .mini-card{padding:12px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);border:1px solid rgba(255,255,255,0.02);text-align:center}
-  .mini-card h3{margin:0;font-size:20px}
-  .mini-card p{margin:0;color:var(--muted);font-size:13px}
+    .card {
+      background: linear-gradient(180deg, var(--card), rgba(11, 15, 19, 0.8));
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 6px 18px rgba(2, 6, 23, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+    }
 
-  .rules{font-size:13px;line-height:1.45;color:var(--muted)}
-  .rules h4{margin:0 0 8px 0;color:white;font-size:15px}
-  .sep{height:1px;background:linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent);margin:8px 0;border-radius:2px}
+    /* Left column - datesheet */
+    .datesheet {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
 
-  footer{grid-column:1/-1;text-align:center;color:var(--muted);font-size:12px;margin-top:8px}
-  .small{font-size:12px;color:var(--muted)}
-  .muted{color:var(--muted)}
+    .controls {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
 
-  .search{
-    display:flex;gap:8px;align-items:center;
-    background:var(--glass);padding:8px;border-radius:10px;border:1px solid rgba(255,255,255,0.02)
-  }
-  input[type="text"]{background:transparent;border:none;outline:none;color:inherit;font-size:14px}
-  .add-bar{display:flex;gap:8px;align-items:center}
-  .show-when-empty{color:var(--muted);font-size:13px;padding:12px;text-align:center}
+    .btn {
+      background: var(--glass);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      color: var(--muted);
+      padding: 8px 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 13px;
+    }
 
-  /* Tablet adjustments */
-@media (max-width: 980px) {
-  .wrap {
-    grid-template-columns: 1fr;
-  }
-  header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 6px;
-  }
-  .brand {
-    gap: 8px;
-  }
-  h1 {
-    font-size: 18px;
-  }
-  .logo {
-    width: 48px;
-    height: 48px;
-    font-size: 16px;
-  }
-}
+    .btn.primary {
+      background: linear-gradient(90deg, var(--accent), #5b8cff);
+      color: white;
+      border: none;
+      box-shadow: 0 6px 18px rgba(124, 58, 237, 0.14)
+    }
 
-/* Mobile layout optimization */
-@media (max-width: 640px) {
-  body {
-    padding: 16px;
-    font-size: 14px;
-  }
+    .btn.ghost {
+      background: transparent;
+      border: 1px dashed rgba(255, 255, 255, 0.04);
+      color: var(--muted)
+    }
 
-  .wrap {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
+    .btn:active {
+      transform: translateY(1px)
+    }
 
-  header {
-    flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
-  }
+    .exam-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
 
-  .card {
-    padding: 12px;
-    border-radius: 10px;
-  }
+    .exam {
+      display: grid;
+      grid-template-columns: 110px 1fr 130px;
+      gap: 12px;
+      align-items: center;
+      padding: 12px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.015), transparent);
+      border: 1px solid rgba(255, 255, 255, 0.02);
+    }
 
-  .exam {
-    grid-template-columns: 1fr;
-    gap: 8px;
-    align-items: flex-start;
-    text-align: left;
-  }
+    .exam .date {
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      align-items: flex-start;
+    }
 
-  .exam .date {
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-  }
+    .exam .date .dow {
+      font-size: 13px;
+      color: var(--muted)
+    }
 
-  .exam .count {
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-    align-items: center;
-  }
+    .exam .meta {
+      display: flex;
+      flex-direction: column;
+      gap: 6px
+    }
 
-  .count .big {
-    font-size: 16px;
-  }
+    .subject {
+      font-weight: 700;
+      font-size: 15px
+    }
 
-  .controls {
-    flex-direction: column;
-    width: 100%;
-  }
+    .info {
+      color: var(--muted);
+      font-size: 13px
+    }
 
-  .btn {
-    width: 100%;
-    text-align: center;
-    font-size: 14px;
-  }
+    .count {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      align-items: flex-end
+    }
 
-  .summary-grid {
-    grid-template-columns: 1fr;
-  }
+    .count .big {
+      font-weight: 800;
+      font-size: 18px
+    }
 
-  .mini-card h3 {
-    font-size: 18px;
-  }
+    .gap {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 6px
+    }
 
-  .mini-card p {
-    font-size: 12px;
-  }
+    .removed-list {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 8px
+    }
 
-  footer {
-    font-size: 11px;
-    line-height: 1.4;
-  }
+    .pill {
+      background: var(--glass-2);
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      color: var(--muted);
+      display: flex;
+      gap: 8px;
+      align-items: center
+    }
 
-  .rules {
-    font-size: 12px;
-  }
+    .pill button {
+      background: transparent;
+      border: none;
+      color: var(--accent);
+      cursor: pointer;
+      font-weight: 700
+    }
 
-  .search input[type="text"] {
-    font-size: 13px;
-    width: 100%;
-  }
+    /* Right column - quick summary & rules */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: sticky;
+      top: 24px;
+      height: fit-content
+    }
 
-  .removed-list {
-    flex-direction: column;
-  }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px
+    }
 
-  .pill {
-    justify-content: space-between;
-    width: 100%;
-  }
-}
+    .mini-card {
+      padding: 12px;
+      border-radius: 10px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), transparent);
+      border: 1px solid rgba(255, 255, 255, 0.02);
+      text-align: center
+    }
 
-</style>
+    .mini-card h3 {
+      margin: 0;
+      font-size: 20px
+    }
+
+    .mini-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px
+    }
+
+    .rules {
+      font-size: 13px;
+      line-height: 1.45;
+      color: var(--muted)
+    }
+
+    .rules h4 {
+      margin: 0 0 8px 0;
+      color: white;
+      font-size: 15px
+    }
+
+    .sep {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.03), transparent);
+      margin: 8px 0;
+      border-radius: 2px
+    }
+
+    footer {
+      grid-column: 1/-1;
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 8px
+    }
+
+    .small {
+      font-size: 12px;
+      color: var(--muted)
+    }
+
+    .muted {
+      color: var(--muted)
+    }
+
+    .search {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      background: var(--glass);
+      padding: 8px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.02)
+    }
+
+    input[type="text"] {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: inherit;
+      font-size: 14px
+    }
+
+    .add-bar {
+      display: flex;
+      gap: 8px;
+      align-items: center
+    }
+
+    .show-when-empty {
+      color: var(--muted);
+      font-size: 13px;
+      padding: 12px;
+      text-align: center
+    }
+
+    /* Tablet adjustments */
+    @media (max-width: 980px) {
+      .wrap {
+        grid-template-columns: 1fr;
+      }
+
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+
+      .brand {
+        gap: 8px;
+      }
+
+      h1 {
+        font-size: 18px;
+      }
+
+      .logo {
+        width: 48px;
+        height: 48px;
+        font-size: 16px;
+      }
+    }
+
+    /* Mobile layout optimization */
+    @media (max-width: 640px) {
+      body {
+        padding: 16px;
+        font-size: 14px;
+      }
+
+      .wrap {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+      }
+
+      .card {
+        padding: 12px;
+        border-radius: 10px;
+      }
+
+      .exam {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        align-items: flex-start;
+        text-align: left;
+      }
+
+      .exam .date {
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+      }
+
+      .exam .count {
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+        align-items: center;
+      }
+
+      .count .big {
+        font-size: 16px;
+      }
+
+      .controls {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .btn {
+        width: 100%;
+        text-align: center;
+        font-size: 14px;
+      }
+
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .mini-card h3 {
+        font-size: 18px;
+      }
+
+      .mini-card p {
+        font-size: 12px;
+      }
+
+      footer {
+        font-size: 11px;
+        line-height: 1.4;
+      }
+
+      .rules {
+        font-size: 12px;
+      }
+
+      .search input[type="text"] {
+        font-size: 13px;
+        width: 100%;
+      }
+
+      .removed-list {
+        flex-direction: column;
+      }
+
+      .pill {
+        justify-content: space-between;
+        width: 100%;
+      }
+    }
+  </style>
 </head>
+
 <body>
   <div class="wrap">
     <header>
@@ -306,8 +483,11 @@
 
       <div class="controls">
         <div class="search" style="flex:1;min-width:180px">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="opacity:0.6"><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <input id="filter" type="text" placeholder="Filter subjects (eg. Math, Physics)"/>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="opacity:0.6">
+            <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+          <input id="filter" type="text" placeholder="Filter subjects (eg. Math, Physics)" />
         </div>
         <div style="display:flex;gap:8px">
           <button id="showRemovedBtn" class="btn">Removed (<span id="removedCount">0</span>)</button>
@@ -317,7 +497,8 @@
 
       <div id="examList" class="exam-list" aria-live="polite" style="margin-top:6px"></div>
 
-      <div id="emptyHint" class="show-when-empty" style="display:none">No exams to show. Use the Restore list to add them back.</div>
+      <div id="emptyHint" class="show-when-empty" style="display:none">No exams to show. Use the Restore list to add
+        them back.</div>
 
       <div style="margin-top:10px" class="card" aria-hidden="false">
         <strong style="display:block;margin-bottom:6px">Removed exams</strong>
@@ -343,10 +524,12 @@
         <div class="sep"></div>
         <div style="display:flex;gap:8px;margin-top:8px">
           <div class="mini-card" style="flex:1">
-            <h3 id="totalExams">0</h3><p>Exams (total)</p>
+            <h3 id="totalExams">0</h3>
+            <p>Exams (total)</p>
           </div>
           <div class="mini-card" style="flex:1">
-            <h3 id="upcomingExams">0</h3><p>Upcoming</p>
+            <h3 id="upcomingExams">0</h3>
+            <p>Upcoming</p>
           </div>
         </div>
       </div>
@@ -354,223 +537,273 @@
       <div class="card">
         <h4>Rules & Timings (short)</h4>
         <div class="rules">
-          <p><strong>Seating & reading:</strong> Be seated <strong>30 minutes before</strong> the paper (i.e. 13:30 for 14:00 papers); <strong>15 minutes reading time</strong> is given before writing — do not write during reading time.</p>
-          <p><strong>Permitted:</strong> Admission Card; stationery in a transparent pouch; Casio fx-82MS or similar basic/scientific calculators (no retrieval features).</p>
-          <p><strong>Not permitted:</strong> Mobile phones, smartwatches, earphones, cameras, wallets/handbags, books, notes, slips, weapon-like objects.</p>
-          <p><strong>Answer booklets:</strong> Write Unique ID, Index No. and Subject on every sheet. Use blue/black ink; pencils only for diagrams. Attach continuation booklets in order.</p>
-          <p><strong>Results & post-exam:</strong> Results expected Apr–May 2026 on <em>cisce.org</em>. Recheck within <strong>4 days</strong> of result; re-evaluation request within <strong>3 days</strong> of recheck result.</p>
+          <p><strong>Seating & reading:</strong> Be seated <strong>30 minutes before</strong> the paper (i.e. 13:30 for
+            14:00 papers); <strong>15 minutes reading time</strong> is given before writing — do not write during
+            reading time.</p>
+          <p><strong>Permitted:</strong> Admission Card; stationery in a transparent pouch; Casio fx-82MS or similar
+            basic/scientific calculators (no retrieval features).</p>
+          <p><strong>Not permitted:</strong> Mobile phones, smartwatches, earphones, cameras, wallets/handbags, books,
+            notes, slips, weapon-like objects.</p>
+          <p><strong>Answer booklets:</strong> Write Unique ID, Index No. and Subject on every sheet. Use blue/black
+            ink; pencils only for diagrams. Attach continuation booklets in order.</p>
+          <p><strong>Results & post-exam:</strong> Results expected Apr–May 2026 on <em>cisce.org</em>. Recheck within
+            <strong>4 days</strong> of result; re-evaluation request within <strong>3 days</strong> of recheck result.
+          </p>
         </div>
       </div>
 
       <div class="card">
         <h4>Legend</h4>
         <div class="rules">
-          <p><strong>Countdown</strong> shows <em>days & hours</em> remaining to the exam datetime (set to 13:30 local).</p>
+          <p><strong>Countdown</strong> shows <em>days & hours</em> remaining to the exam datetime (set to 13:30 local).
+          </p>
           <p><strong>Gap days</strong> are calendar day differences from the previous exam (0 = same day).</p>
         </div>
       </div>
 
     </aside>
 
-    <footer class="muted small">Data source: ISC (Class XII) — Year 2026 timetable & instructions (summarised). All preferences persist in your browser (localStorage).</footer>
+    <footer class="muted small">Data source: ISC (Class XII) — Year 2026 timetable & instructions (summarised). All
+      preferences persist in your browser (localStorage).</footer>
   </div>
 
-<script>
-/*
- Single-file ISC 2026 datesheet app
- - Exam times use 13:30 as reference (per user's request)
- - Personalization (removed exams) saved to localStorage
-*/
+  <script>
+    /*
+     Single-file ISC 2026 datesheet app
+     - Exam times use 13:30 as reference (per user's request)
+     - Personalization (removed exams) saved to localStorage
+    */
 
-const EXAMS = [
-  // Date strings in YYYY-MM-DD (local) - using official dates from the supplied timetable
-  { id: 'e1', date: '2026-02-12', label: 'Psychology' },
-  { id: 'e2', date: '2026-02-13', label: 'English - Paper 1 (Language)' },
-  { id: 'e3', date: '2026-02-14', label: 'Art Paper 3 (Drawing/Painting of a Living Person)' },
-  { id: 'e4', date: '2026-02-14', label: 'Legal Studies' },
-  { id: 'e5', date: '2026-02-16', label: 'English - Paper 2 (Literature) / Home Science Paper 1' },
-  { id: 'e6', date: '2026-02-17', label: 'Electricity & Electronics / Geometrical & Mechanical Drawing' },
-  { id: 'e7', date: '2026-02-20', label: 'Accounts' },
-  { id: 'e8', date: '2026-02-21', label: 'Mass Media & Communication' },
-  { id: 'e9', date: '2026-02-23', label: 'Chemistry - Paper 1 (Theory)' },
-  { id: 'e10', date: '2026-02-25', label: 'History' },
-  { id: 'e11', date: '2026-02-27', label: 'Commerce' },
-  { id: 'e12', date: '2026-02-28', label: 'Art Paper 1 (Drawing or Painting from Still Life)' },
-  { id: 'e13', date: '2026-03-02', label: 'Environmental Science - Paper 1 (Theory)' },
-  { id: 'e14', date: '2026-03-06', label: 'Biology - Paper 1 (Theory)' },
-  { id: 'e15', date: '2026-03-07', label: 'Designing / Indian Music - Hindustani - Paper 1 (Theory)' },
-  { id: 'e16', date: '2026-03-09', label: 'Mathematics' },
-  { id: 'e17', date: '2026-03-11', label: 'Business Studies / select Indian languages' },
-  { id: 'e18', date: '2026-03-13', label: 'Other languages (Nepali, Odia, Punjabi, Tamil, Telugu, Urdu...)' },
-  { id: 'e19', date: '2026-03-14', label: 'Art Paper 2 (Drawing or Painting from Nature)' },
-  { id: 'e20', date: '2026-03-16', label: 'Physics - Paper 1 (Theory)' },
-  { id: 'e21', date: '2026-03-18', label: 'Physical Education' },
-  { id: 'e22', date: '2026-03-23', label: 'Economics / Biotechnology - Paper 1 (Theory)' },
-  { id: 'e23', date: '2026-03-25', label: 'Sociology' },
-  { id: 'e24', date: '2026-03-27', label: 'Computer Science - Paper 1 (Theory)' },
-  { id: 'e25', date: '2026-03-28', label: 'Art Paper 4 (Original Imaginative Composition in Colour)' },
-  { id: 'e26', date: '2026-03-30', label: 'Political Science / Elective English' },
-  { id: 'e27', date: '2026-04-01', label: 'Hospitality Management' },
-  { id: 'e28', date: '2026-04-04', label: 'Art Paper 5 (Crafts A)' },
-  { id: 'e29', date: '2026-04-06', label: 'Geography' }
-];
+    const EXAMS = [
+      // Already existing official exams
+      { id: 'e1', date: '2026-02-12', label: 'Psychology' },
+      { id: 'e2', date: '2026-02-13', label: 'English - Paper 1 (Language)' },
+      { id: 'e3', date: '2026-02-14', label: 'Art Paper 3 (Drawing/Painting of a Living Person)' },
+      { id: 'e4', date: '2026-02-14', label: 'Legal Studies' },
+      { id: 'e5', date: '2026-02-16', label: 'English - Paper 2 (Literature) / Home Science Paper 1' },
+      { id: 'e6', date: '2026-02-17', label: 'Electricity and Electronics / Geometrical and Mechanical Drawing' },
+      { id: 'e7', date: '2026-02-20', label: 'Accounts' },
+      { id: 'e8', date: '2026-02-21', label: 'Mass Media and Communication' },
+      { id: 'e9', date: '2026-02-23', label: 'Chemistry - Paper 1 (Theory)' },
+      { id: 'e10', date: '2026-02-25', label: 'History' },
+      { id: 'e11', date: '2026-02-27', label: 'Commerce' },
+      { id: 'e12', date: '2026-02-28', label: 'Art Paper 1 (Drawing or Painting from Still Life)' },
+      { id: 'e13', date: '2026-03-02', label: 'Environmental Science - Paper 1 (Theory)' },
+      { id: 'e14', date: '2026-03-06', label: 'Biology - Paper 1 (Theory)' },
+      { id: 'e15', date: '2026-03-07', label: 'Designing / Indian Music - Hindustani - Paper 1 (Theory)' },
+      { id: 'e16', date: '2026-03-09', label: 'Mathematics' },
+      { id: 'e17', date: '2026-03-11', label: 'Business Studies / Indian Languages (Electives)' },
+      { id: 'e18', date: '2026-03-13', label: 'Other Languages (Nepali, Odia, Punjabi, Tamil, Telugu, Urdu...)' },
+      { id: 'e19', date: '2026-03-14', label: 'Art Paper 2 (Drawing or Painting from Nature)' },
+      { id: 'e20', date: '2026-03-16', label: 'Physics - Paper 1 (Theory)' },
+      { id: 'e21', date: '2026-03-18', label: 'Physical Education' },
+      { id: 'e22', date: '2026-03-23', label: 'Economics / Biotechnology - Paper 1 (Theory)' },
+      { id: 'e23', date: '2026-03-25', label: 'Sociology' },
+      { id: 'e24', date: '2026-03-27', label: 'Computer Science - Paper 1 (Theory)' },
+      { id: 'e25', date: '2026-03-28', label: 'Art Paper 4 (Original Imaginative Composition in Colour)' },
+      { id: 'e26', date: '2026-03-30', label: 'Political Science / Elective English' },
+      { id: 'e27', date: '2026-04-01', label: 'Hospitality Management' },
+      { id: 'e28', date: '2026-04-04', label: 'Art Paper 5 (Crafts A)' },
+      { id: 'e29', date: '2026-04-06', label: 'Geography' },
 
-// LocalStorage keys
-const LS_REMOVED = 'isc2026_removedIds';
-const LS_HIDE_PAST = 'isc2026_hidePast';
+      // --------------------------
+      // Added by you (chronological)
+      // --------------------------
 
-// helpers
-const $ = sel => document.querySelector(sel);
-const $$ = sel => Array.from(document.querySelectorAll(sel));
+      // Pre-Prelims – November 2025
+      { id: 'e30', date: '2025-11-24', label: 'English Literature' },
+      { id: 'e31', date: '2025-11-25', label: 'English Language' },
+      { id: 'e32', date: '2025-11-26', label: 'Economics / Business Studies' },
+      { id: 'e33', date: '2025-11-27', label: 'Optional Subject' },
+      { id: 'e34', date: '2025-11-29', label: 'Mathematics / Biology' },
 
-let nowEl = document.getElementById('nowTime');
-let examListEl = document.getElementById('examList');
-let removedListEl = document.getElementById('removedList');
-let removedCountEl = document.getElementById('removedCount');
-let nextSubjectEl = document.getElementById('nextSubject');
-let nextDateEl = document.getElementById('nextDate');
-let totalExamsEl = document.getElementById('totalExams');
-let upcomingExamsEl = document.getElementById('upcomingExams');
-let removedIds = new Set(JSON.parse(localStorage.getItem(LS_REMOVED) || '[]'));
-let hidePast = JSON.parse(localStorage.getItem(LS_HIDE_PAST) || 'false');
-const filterInput = document.getElementById('filter');
+      // Pre-Prelims – December 2025
+      { id: 'e35', date: '2025-12-01', label: 'Chemistry / Commerce / Political Science' },
+      { id: 'e36', date: '2025-12-03', label: 'Physics / Accounts / Psychology' },
 
-document.getElementById('restoreAll').addEventListener('click', ()=>{
-  if(confirm('Restore all removed exams?')) {
-    removedIds.clear();
-    saveRemoved();
-    render();
-  }
-});
-document.getElementById('showRemovedBtn').addEventListener('click', ()=>{
-  const el = document.getElementById('removedList');
-  el.scrollIntoView({behavior:'smooth', block:'center'});
-});
-document.getElementById('toggleAll').addEventListener('click', (e)=>{
-  hidePast = !hidePast;
-  localStorage.setItem(LS_HIDE_PAST, JSON.stringify(hidePast));
-  e.currentTarget.textContent = hidePast ? 'Show past exams' : 'Hide past exams';
-  render();
-});
+      // Viva – December 2025
+      { id: 'e37', date: '2025-12-04', label: 'English Viva' },
+      { id: 'e38', date: '2025-12-05', label: 'Physical Education / Music Viva' },
+      { id: 'e39', date: '2025-12-06', label: 'Physical Education / Fashion Designing Viva' },
+      { id: 'e40', date: '2025-12-08', label: 'Mathematics Viva' },
+      { id: 'e41', date: '2025-12-09', label: 'Art Viva' },
+      { id: 'e42', date: '2025-12-10', label: 'Economics Viva' },
+      { id: 'e43', date: '2025-12-11', label: 'Political Science Viva' },
+      { id: 'e44', date: '2025-12-12', label: 'Computer Science / Hindi Viva' },
+      { id: 'e45', date: '2025-12-15', label: 'Accounts Viva' },
+      { id: 'e46', date: '2025-12-16', label: 'Physics Viva' },
+      { id: 'e47', date: '2025-12-17', label: 'Commerce Viva' },
+      { id: 'e48', date: '2025-12-18', label: 'Chemistry / Psychology Viva' },
+      { id: 'e49', date: '2025-12-19', label: 'Chemistry / Business Studies Viva' },
 
-// build exam objects with Date objects (time set to 13:30)
-function examDateObj(dateStr){
-  // dateStr like '2026-02-12' - construct local datetime at 13:30
-  // Use components to avoid timezone shift issues.
-  const [y,m,d] = dateStr.split('-').map(Number);
-  return new Date(y, m-1, d, 13, 30, 0, 0);
-}
+      // Prelims – December 2025
+      { id: 'e50', date: '2025-12-26', label: 'English Literature Prelims' },
+      { id: 'e51', date: '2025-12-27', label: 'English Language Prelims' },
 
-const today = ()=> new Date();
+      // Prelims – January 2026
+      { id: 'e52', date: '2026-01-09', label: 'Accounts Prelims' },
+      { id: 'e53', date: '2026-01-12', label: 'Chemistry / Commerce / Psychology Prelims' },
+      { id: 'e54', date: '2026-01-13', label: 'Optional Subject Prelims' },
+      { id: 'e55', date: '2026-01-15', label: 'Mathematics / Biology Prelims' },
+      { id: 'e56', date: '2026-01-17', label: 'Economics / Business Studies Prelims' },
+    ];
 
-// compute gap days between two Date objects (calendar days)
-function gapDays(prevDateObj, curDateObj){
-  if(!prevDateObj) return null;
-  // floor difference in whole days (midnight to midnight)
-  const prev = new Date(prevDateObj.getFullYear(), prevDateObj.getMonth(), prevDateObj.getDate());
-  const cur = new Date(curDateObj.getFullYear(), curDateObj.getMonth(), curDateObj.getDate());
-  const diff = Math.round((cur - prev) / (24*60*60*1000));
-  return diff;
-}
+    // LocalStorage keys
+    const LS_REMOVED = 'isc2026_removedIds';
+    const LS_HIDE_PAST = 'isc2026_hidePast';
 
-function saveRemoved(){
-  localStorage.setItem(LS_REMOVED, JSON.stringify(Array.from(removedIds)));
-  removedCountEl.textContent = removedIds.size;
-  renderRemovedList();
-}
+    // helpers
+    const $ = sel => document.querySelector(sel);
+    const $$ = sel => Array.from(document.querySelectorAll(sel));
 
-function renderRemovedList(){
-  removedListEl.innerHTML = '';
-  if(removedIds.size === 0){
-    removedListEl.innerHTML = '<div class="muted small">No exams removed.</div>';
-    return;
-  }
-  EXAMS.filter(e=>removedIds.has(e.id)).forEach(e=>{
-    const pill = document.createElement('div');
-    pill.className = 'pill';
-    pill.innerHTML = `<span style="font-weight:700">${e.label}</span><button aria-label="Restore ${e.label}">Add</button>`;
-    pill.querySelector('button').addEventListener('click', ()=>{
-      removedIds.delete(e.id);
-      saveRemoved();
+    let nowEl = document.getElementById('nowTime');
+    let examListEl = document.getElementById('examList');
+    let removedListEl = document.getElementById('removedList');
+    let removedCountEl = document.getElementById('removedCount');
+    let nextSubjectEl = document.getElementById('nextSubject');
+    let nextDateEl = document.getElementById('nextDate');
+    let totalExamsEl = document.getElementById('totalExams');
+    let upcomingExamsEl = document.getElementById('upcomingExams');
+    let removedIds = new Set(JSON.parse(localStorage.getItem(LS_REMOVED) || '[]'));
+    let hidePast = JSON.parse(localStorage.getItem(LS_HIDE_PAST) || 'false');
+    const filterInput = document.getElementById('filter');
+
+    document.getElementById('restoreAll').addEventListener('click', () => {
+      if (confirm('Restore all removed exams?')) {
+        removedIds.clear();
+        saveRemoved();
+        render();
+      }
+    });
+    document.getElementById('showRemovedBtn').addEventListener('click', () => {
+      const el = document.getElementById('removedList');
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+    document.getElementById('toggleAll').addEventListener('click', (e) => {
+      hidePast = !hidePast;
+      localStorage.setItem(LS_HIDE_PAST, JSON.stringify(hidePast));
+      e.currentTarget.textContent = hidePast ? 'Show past exams' : 'Hide past exams';
       render();
     });
-    removedListEl.appendChild(pill);
-  });
-}
 
-function formatDateLong(d){
-  const opts = { weekday: 'short', year:'numeric', month:'short', day:'numeric' };
-  return d.toLocaleDateString(undefined, opts);
-}
-function formatDateOnly(d){
-  const opts = { year:'numeric', month:'short', day:'numeric' };
-  return d.toLocaleDateString(undefined, opts);
-}
-
-// build displayed list (sorted by date)
-function buildViewList(){
-  // create array with date object and original index
-  const arr = EXAMS.map(e=>{
-    return { ...e, dateObj: examDateObj(e.date) };
-  }).sort((a,b)=> a.dateObj - b.dateObj);
-  return arr;
-}
-
-let showPastState = false; // toggles per "Hide past exams" / "Show past exams" (button text)
-function render(){
-  const list = buildViewList();
-  const q = filterInput.value.trim().toLowerCase();
-
-  // update summary counts
-  const total = list.length;
-  totalExamsEl.textContent = total;
-
-  // now/time display
-  updateNowTime();
-
-  // build list items
-  examListEl.innerHTML = '';
-  let prevDate = null;
-  let upcomingCount = 0;
-  let nextExam = null;
-  const now = new Date();
-
-  let anyShown = false;
-  for(const e of list){
-    // filtering & removed
-    if(removedIds.has(e.id)) continue;
-    if(q && !e.label.toLowerCase().includes(q)) continue;
-
-    const isPast = e.dateObj < now;
-    if(hidePast && isPast) continue;
-
-    anyShown = true;
-
-    // gap days
-    const gap = gapDays(prevDate, e.dateObj);
-    prevDate = e.dateObj;
-
-    // compute countdown days & hours left from now to e.dateObj
-    const diffMs = e.dateObj - now;
-    const abs = Math.max(0, diffMs);
-    const daysLeft = Math.floor(abs / (24*60*60*1000));
-    const hoursLeft = Math.floor((abs % (24*60*60*1000)) / (60*60*1000));
-    const minutesLeft = Math.floor((abs % (60*60*1000)) / (60*1000));
-    const secLeft = Math.floor((abs % (60*1000)) / 1000);
-
-    if(!isPast && !nextExam){
-      nextExam = e;
-      upcomingCount++;
-    } else if(!isPast) {
-      upcomingCount++;
+    // build exam objects with Date objects (time set to 13:30)
+    function examDateObj(dateStr) {
+      // dateStr like '2026-02-12' - construct local datetime at 13:30
+      // Use components to avoid timezone shift issues.
+      const [y, m, d] = dateStr.split('-').map(Number);
+      return new Date(y, m - 1, d, 13, 30, 0, 0);
     }
 
-    const examEl = document.createElement('div');
-    examEl.className = 'exam';
-    examEl.innerHTML = `
+    const today = () => new Date();
+
+    // compute gap days between two Date objects (calendar days)
+    function gapDays(prevDateObj, curDateObj) {
+      if (!prevDateObj) return null;
+      // floor difference in whole days (midnight to midnight)
+      const prev = new Date(prevDateObj.getFullYear(), prevDateObj.getMonth(), prevDateObj.getDate());
+      const cur = new Date(curDateObj.getFullYear(), curDateObj.getMonth(), curDateObj.getDate());
+      const diff = Math.round((cur - prev) / (24 * 60 * 60 * 1000));
+      return diff;
+    }
+
+    function saveRemoved() {
+      localStorage.setItem(LS_REMOVED, JSON.stringify(Array.from(removedIds)));
+      removedCountEl.textContent = removedIds.size;
+      renderRemovedList();
+    }
+
+    function renderRemovedList() {
+      removedListEl.innerHTML = '';
+      if (removedIds.size === 0) {
+        removedListEl.innerHTML = '<div class="muted small">No exams removed.</div>';
+        return;
+      }
+      EXAMS.filter(e => removedIds.has(e.id)).forEach(e => {
+        const pill = document.createElement('div');
+        pill.className = 'pill';
+        pill.innerHTML = `<span style="font-weight:700">${e.label}</span><button aria-label="Restore ${e.label}">Add</button>`;
+        pill.querySelector('button').addEventListener('click', () => {
+          removedIds.delete(e.id);
+          saveRemoved();
+          render();
+        });
+        removedListEl.appendChild(pill);
+      });
+    }
+
+    function formatDateLong(d) {
+      const opts = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+      return d.toLocaleDateString(undefined, opts);
+    }
+    function formatDateOnly(d) {
+      const opts = { year: 'numeric', month: 'short', day: 'numeric' };
+      return d.toLocaleDateString(undefined, opts);
+    }
+
+    // build displayed list (sorted by date)
+    function buildViewList() {
+      // create array with date object and original index
+      const arr = EXAMS.map(e => {
+        return { ...e, dateObj: examDateObj(e.date) };
+      }).sort((a, b) => a.dateObj - b.dateObj);
+      return arr;
+    }
+
+    let showPastState = false; // toggles per "Hide past exams" / "Show past exams" (button text)
+    function render() {
+      const list = buildViewList();
+      const q = filterInput.value.trim().toLowerCase();
+
+      // update summary counts
+      const total = list.length;
+      totalExamsEl.textContent = total;
+
+      // now/time display
+      updateNowTime();
+
+      // build list items
+      examListEl.innerHTML = '';
+      let prevDate = null;
+      let upcomingCount = 0;
+      let nextExam = null;
+      const now = new Date();
+
+      let anyShown = false;
+      for (const e of list) {
+        // filtering & removed
+        if (removedIds.has(e.id)) continue;
+        if (q && !e.label.toLowerCase().includes(q)) continue;
+
+        const isPast = e.dateObj < now;
+        if (hidePast && isPast) continue;
+
+        anyShown = true;
+
+        // gap days
+        const gap = gapDays(prevDate, e.dateObj);
+        prevDate = e.dateObj;
+
+        // compute countdown days & hours left from now to e.dateObj
+        const diffMs = e.dateObj - now;
+        const abs = Math.max(0, diffMs);
+        const daysLeft = Math.floor(abs / (24 * 60 * 60 * 1000));
+        const hoursLeft = Math.floor((abs % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
+        const minutesLeft = Math.floor((abs % (60 * 60 * 1000)) / (60 * 1000));
+        const secLeft = Math.floor((abs % (60 * 1000)) / 1000);
+
+        if (!isPast && !nextExam) {
+          nextExam = e;
+          upcomingCount++;
+        } else if (!isPast) {
+          upcomingCount++;
+        }
+
+        const examEl = document.createElement('div');
+        examEl.className = 'exam';
+        examEl.innerHTML = `
       <div class="date">
         <div style="font-size:13px;color:var(--muted)">${formatDateLong(e.dateObj)}</div>
-        <div class="dow">${e.dateObj.toLocaleDateString(undefined, { weekday:'long' })} • 13:30</div>
+        <div class="dow">${e.dateObj.toLocaleDateString(undefined, { weekday: 'long' })} • 13:30</div>
       </div>
       <div class="meta">
         <div class="subject">${e.label}</div>
@@ -586,87 +819,88 @@ function render(){
         </div>
       </div>
     `;
-    examListEl.appendChild(examEl);
+        examListEl.appendChild(examEl);
 
-    // details button: show exact live seconds in an alert or tooltip
-    examEl.querySelector('[data-info]').addEventListener('click', ()=>{
-      // compute exact remaining
-      const ms = e.dateObj - new Date();
-      if(ms <= 0){
-        alert(e.label + ' — exam time has passed.');
-        return;
+        // details button: show exact live seconds in an alert or tooltip
+        examEl.querySelector('[data-info]').addEventListener('click', () => {
+          // compute exact remaining
+          const ms = e.dateObj - new Date();
+          if (ms <= 0) {
+            alert(e.label + ' — exam time has passed.');
+            return;
+          }
+          const d = Math.floor(ms / (24 * 60 * 60 * 1000));
+          const h = Math.floor(ms / (60 * 60 * 1000)) % 24;
+          const m = Math.floor(ms / (60 * 1000)) % 60;
+          const s = Math.floor(ms / 1000) % 60;
+          alert(`${e.label}\nDate: ${formatDateLong(e.dateObj)} at 13:30\nTime left: ${d} days, ${h} hours, ${m} minutes, ${s} seconds`);
+        });
+
+        // remove button handler
+        examEl.querySelector('[data-remove]').addEventListener('click', (ev) => {
+          removedIds.add(ev.currentTarget.getAttribute('data-remove'));
+          saveRemoved();
+          render();
+        });
       }
-      const d = Math.floor(ms / (24*60*60*1000));
-      const h = Math.floor(ms / (60*60*1000)) % 24;
-      const m = Math.floor(ms / (60*1000)) % 60;
-      const s = Math.floor(ms / 1000) % 60;
-      alert(`${e.label}\nDate: ${formatDateLong(e.dateObj)} at 13:30\nTime left: ${d} days, ${h} hours, ${m} minutes, ${s} seconds`);
-    });
 
-    // remove button handler
-    examEl.querySelector('[data-remove]').addEventListener('click', (ev)=>{
-      removedIds.add(ev.currentTarget.getAttribute('data-remove'));
-      saveRemoved();
+      // show hint if none shown
+      document.getElementById('emptyHint').style.display = anyShown ? 'none' : 'block';
+
+      // update summary & next exam card
+      upcomingExamsEl.textContent = upcomingCount;
+      if (nextExam) {
+        nextSubjectEl.textContent = nextExam.label;
+        nextDateEl.textContent = formatDateLong(nextExam.dateObj) + ' • 13:30';
+      } else {
+        nextSubjectEl.textContent = 'No upcoming exams';
+        nextDateEl.textContent = '';
+      }
+
+      // render removed pills
+      renderRemovedList();
+
+      // set button text according to hidePast
+      document.getElementById('toggleAll').textContent = hidePast ? 'Show past exams' : 'Hide past exams';
+    }
+
+    // update live now time and update counters
+    function updateNowTime() {
+      const now = new Date();
+      // show local time YYYY-MM-DD HH:MM:SS (user's browser locale)
+      const tz = now.toLocaleTimeString();
+      const datePart = now.toLocaleDateString();
+      nowEl.textContent = datePart + ' • ' + tz;
+
+      // update each counter display
+      for (const e of EXAMS) {
+        if (removedIds.has(e.id)) continue;
+        const el = document.getElementById('count-' + e.id);
+        if (!el) continue;
+        const diffMs = examDateObj(e.date) - now;
+        const abs = Math.max(0, diffMs);
+        const daysLeft = Math.floor(abs / (24 * 60 * 60 * 1000));
+        const hoursLeft = Math.floor((abs % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
+        el.textContent = (diffMs <= 0) ? '0d 0h' : `${daysLeft}d ${hoursLeft}h`;
+      }
+    }
+
+    // initial startup
+    (function init() {
+      // ensure removedIds loaded
+      removedCountEl.textContent = removedIds.size;
+      render();
+      // render every second for live counters and now time
+      setInterval(() => {
+        updateNowTime();
+      }, 1000);
+    })();
+
+    // filter input live
+    filterInput.addEventListener('input', () => {
       render();
     });
-  }
-
-  // show hint if none shown
-  document.getElementById('emptyHint').style.display = anyShown ? 'none' : 'block';
-
-  // update summary & next exam card
-  upcomingExamsEl.textContent = upcomingCount;
-  if(nextExam){
-    nextSubjectEl.textContent = nextExam.label;
-    nextDateEl.textContent = formatDateLong(nextExam.dateObj) + ' • 13:30';
-  } else {
-    nextSubjectEl.textContent = 'No upcoming exams';
-    nextDateEl.textContent = '';
-  }
-
-  // render removed pills
-  renderRemovedList();
-
-  // set button text according to hidePast
-  document.getElementById('toggleAll').textContent = hidePast ? 'Show past exams' : 'Hide past exams';
-}
-
-// update live now time and update counters
-function updateNowTime(){
-  const now = new Date();
-  // show local time YYYY-MM-DD HH:MM:SS (user's browser locale)
-  const tz = now.toLocaleTimeString();
-  const datePart = now.toLocaleDateString();
-  nowEl.textContent = datePart + ' • ' + tz;
-
-  // update each counter display
-  for(const e of EXAMS){
-    if(removedIds.has(e.id)) continue;
-    const el = document.getElementById('count-'+e.id);
-    if(!el) continue;
-    const diffMs = examDateObj(e.date) - now;
-    const abs = Math.max(0, diffMs);
-    const daysLeft = Math.floor(abs / (24*60*60*1000));
-    const hoursLeft = Math.floor((abs % (24*60*60*1000)) / (60*60*1000));
-    el.textContent = (diffMs <= 0) ? '0d 0h' : `${daysLeft}d ${hoursLeft}h`;
-  }
-}
-
-// initial startup
-(function init(){
-  // ensure removedIds loaded
-  removedCountEl.textContent = removedIds.size;
-  render();
-  // render every second for live counters and now time
-  setInterval(()=>{
-    updateNowTime();
-  }, 1000);
-})();
-
-// filter input live
-filterInput.addEventListener('input', ()=>{
-  render();
-});
-</script>
+  </script>
 </body>
+
 </html>
